@@ -49,22 +49,46 @@ describe('Thermostat', function() {
     expect(thermostat.isPowerSavingModeOn()).toBe(true);
   });
 
-    describe('when PSM is on', function(){
-      it('has temperture of 25 degrees', function(){
-        for (var i = 0; i < 6; i ++){
-          thermostat.increaseTempBy();
-        }
-        expect(thermostat.newTemperature()).toEqual (25);
-      });
-    });
-
-    it('can be reset to default temperature', function(){
+  describe('when PSM is on', function(){
+    it('has temperture of 25 degrees', function(){
       for (var i = 0; i < 6; i ++){
         thermostat.increaseTempBy();
       }
-      thermostat.resetTemperature();
-      expect(thermostat.newTemperature()).toEqual(20);
+      expect(thermostat.newTemperature()).toEqual (25);
+    });
+  });
 
+  it('can be reset to default temperature', function(){
+    for (var i = 0; i < 6; i ++){
+      thermostat.increaseTempBy();
+    }
+    thermostat.resetTemperature();
+    expect(thermostat.newTemperature()).toEqual(20);
+  });
+  describe('displaying usage levels', function() {
+    describe('when the temperature is below 18 degrees', function() {
+      it('it is considered low-usage', function() {
+        for (var i = 0; i < 3; i++) {
+          thermostat.decreaseTempBy();
+        }
+        expect(thermostat.energyUsage()).toEqual('low-usage');
+      });
     });
 
+    describe('when the temperature is between 18 and 25 degrees', function() {
+      it('it is considered medium-usage', function() {
+        expect(thermostat.energyUsage()).toEqual('medium-usage');
+      });
+    });
+
+    describe('when the temperature is anything else', function() {
+      it('it is considered high-usage', function() {
+        thermostat.powerSavingMode = false;
+        for (var i = 0; i < 9 ; i++) {
+          thermostat.increaseTempBy();
+        }
+        expect(thermostat.energyUsage()).toEqual('high-usage');
+      });
+    });
+  });
 });
