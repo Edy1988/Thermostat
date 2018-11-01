@@ -17,13 +17,23 @@ describe('Thermostat', function() {
   });
 
   it('can increase the temperature', function(){
-    thermostat.increaseTempBy();
-    expect(thermostat.newTemperature()).toEqual(25);
+    thermostat.increaseTempBy(1);
+    expect(thermostat.newTemperature()).toEqual(21);
   });
 
   it('can decrease the temperature', function(){
     thermostat.decreaseTempBy();
-    expect(thermostat.newTemperature()).toEqual(15);
+    expect(thermostat.newTemperature()).toEqual(19);
   });
 
+  it('has a minimum of 10 degrees', function() {
+    for (var i = 0; i < 11; i++) {
+      thermostat.decreaseTempBy();
+    }
+    expect(thermostat.newTemperature()).toEqual(10);
+  });
+
+  it('has power saving mode on by default', function(){
+    expect(thermostat.powerSavingOn).toBe (true);
+  })
 });
