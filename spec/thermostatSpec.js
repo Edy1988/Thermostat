@@ -49,4 +49,13 @@ describe('Thermostat', function() {
     expect(thermostat.isPowerSavingModeOn()).toBe(true);
   });
 
+    describe('when PSM is on', function(){
+      it('has temperture of 25 degrees', function(){
+        for (var i = 0; i < 5; i ++){
+          thermostat.increaseTempBy();
+        }
+        expect(thermostat.newTemperature()).toEqual (25);
+      });
+    })
+
 });
