@@ -58,4 +58,13 @@ describe('Thermostat', function() {
       });
     });
 
+    it('can be reset to default temperature', function(){
+      for (var i = 0; i < 6; i ++){
+        thermostat.increaseTempBy();
+      }
+      thermostat.resetTemperature();
+      expect(thermostat.newTemperature()).toEqual(20);
+
+    });
+
 });
