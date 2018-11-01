@@ -51,11 +51,11 @@ describe('Thermostat', function() {
 
     describe('when PSM is on', function(){
       it('has temperture of 25 degrees', function(){
-        for (var i = 0; i < 5; i ++){
+        for (var i = 0; i < 6; i ++){
           thermostat.increaseTempBy();
         }
         expect(thermostat.newTemperature()).toEqual (25);
       });
-    })
+    });
 
 });
